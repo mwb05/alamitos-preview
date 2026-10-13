@@ -3,25 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Los Angeles Prices | The Alamitos Group</title>
-  <meta name="description" content="Current service menu pricing for Alamitos Group Jiffy Lube locations in Los Angeles.">
-  <meta name="robots" content="noindex, nofollow">
+  <title>Los Angeles Service Menu | The Alamitos Group</title>
+  <meta name="description" content="Service menu board for Los Angeles Jiffy Lube locations.">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Alamitos Group">
+  <meta property="og:title" content="Los Angeles Service Menu | The Alamitos Group">
+  <meta property="og:description" content="Service menu board for Los Angeles Jiffy Lube locations.">
+  <meta property="og:image" content="https://alamitosgroup.com/assets/hero-drone.jpg">
+  <meta property="og:url" content="https://alamitosgroup.com/los-angeles-prices.html">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="is-loaded">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <div class="container header-inner">
+    <div class="header-inner">
       <a class="brand" href="index.html">
-        <img src="assets/jiffy-lube-logo.jpg" alt="Jiffy Lube logo" width="600" height="383">
-        <span class="brand-name">The Alamitos Group</span>
+        <span class="brand-plate"><img src="assets/jiffy-lube-logo.jpg" alt="Jiffy Lube logo" width="600" height="383"></span>
+        <span class="brand-text">
+          <span class="wordmark">The Alamitos Group</span>
+          <span class="brand-sub">Jiffy Lube Franchisee</span>
+        </span>
       </a>
-      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+      <nav class="main-nav" id="main-nav" aria-label="Main">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="services.html">Services</a></li>
@@ -29,39 +39,99 @@
           <li><a href="principles.html">Principles</a></li>
           <li><a href="careers.html">Careers</a></li>
           <li><a href="locations.html">Locations</a></li>
-          <li class="nav-call-item"><a href="tel:+17142360715">Call (714) 236-0715</a></li>
         </ul>
       </nav>
-      <a class="btn btn-primary header-call" href="tel:+17142360715">Call (714) 236-0715</a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+      <a class="btn btn-primary btn-sm header-cta" href="locations.html">Find a location</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
     </div>
   </header>
 
   <main id="main">
-    <section class="section">
-      <div class="container" style="max-width:56rem">
-        <div class="section-head">
-          <h1>Los Angeles Service Menu</h1>
-        </div>
-        <div class="menu-boards">
-          <img src="assets/la-menu-board-oct-2025.png" alt="Los Angeles service menu board with pricing, October 2025" width="2160" height="2160">
-          <img src="assets/la-menu-board-2.png" alt="Los Angeles service menu board with additional pricing" width="2160" height="2160" loading="lazy">
+
+    <section class="page-hero">
+      <div class="container">
+        <span class="tab">Service menu</span>
+        <h1 class="lines">
+          <span class="line"><span>Los Angeles</span></span>
+          <span class="line"><span>Service Menu</span></span>
+        </h1>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container" style="display:grid; gap:14px">
+        <div class="split-media"><img src="assets/la-menu-board-oct-2025.png" alt="Los Angeles Jiffy Lube service menu board, page 1" loading="lazy" decoding="async"></div>
+        <div class="split-media"><img src="assets/la-menu-board-2.png" alt="Los Angeles Jiffy Lube service menu board, page 2" loading="lazy" decoding="async"></div>
+      </div>
+    </section>
+
+    <section class="section on-red cta-band">
+      <div class="container">
+        <h2 class="lines"><span class="line"><span>Questions on Pricing?</span></span></h2>
+        <p class="lede" style="margin-top:1.2rem">Call the store you plan to visit &mdash; prices and promotions can vary by location.</p>
+        <div class="btn-row">
+          <a class="btn btn-light" href="locations.html">Find a Location <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom" style="border-top:0;padding-top:0">
-        <span>© 2026 Alamitos Enterprises, LLC. All rights reserved.</span>
-        <span>Call us at <a href="tel:+17142360715">(714) 236-0715</a></span>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="brand-plate"><img src="assets/jiffy-lube-logo.jpg" alt="Jiffy Lube logo" width="600" height="383" loading="lazy"></span>
+          <div class="wordmark">The Alamitos Group</div>
+          <div class="sub">Family owned since 1995</div>
+        </div>
+        <nav aria-label="Footer">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="principles.html">Principles</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="employee-resources.html">Employee Resources</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h3>Send Us a Message</h3>
+          <!-- Formspree placeholder: replace PLACEHOLDER with a real form ID (see README.md) -->
+          <form class="contact-form" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+            <div>
+              <label for="f-first">First Name</label>
+              <input id="f-first" name="first_name" type="text" autocomplete="given-name" required>
+            </div>
+            <div>
+              <label for="f-last">Last Name</label>
+              <input id="f-last" name="last_name" type="text" autocomplete="family-name" required>
+            </div>
+            <div class="full">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="full">
+              <label for="f-message">Message</label>
+              <textarea id="f-message" name="message" required></textarea>
+            </div>
+            <button class="btn" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Alamitos Enterprises, LLC. All rights reserved.</span>
+        <span>Jiffy Lube&reg; is a registered trademark of Jiffy Lube, LLC.</span>
       </div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
