@@ -277,6 +277,28 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .quote p { font-size: 1.02rem; line-height: 1.5; }
 .quote figcaption { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
+/* The full Google reviews wall: every card is in the HTML; main.js pages and filters it. */
+.review-stats { list-style: none; margin: 0 auto clamp(1.6rem, 3vw, 2.4rem); padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.review-stats li { border: 2px solid var(--ink); padding: .7rem 1.1rem; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.review-stats strong { color: var(--red); font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em; margin-right: .35rem; }
+.review-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem 1rem; margin-bottom: 1.2rem; }
+.review-tools[hidden] { display: none; }
+.review-tools label { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.review-tools select { font: inherit; font-weight: 700; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); border-radius: var(--radius); padding: .55rem 2.2rem .55rem .8rem; cursor: pointer; }
+.review-count { width: 100%; text-align: center; font-size: .8rem; color: var(--muted); }
+.review-grid { align-items: start; }
+.review[hidden] { display: none; }
+.review p { overflow-wrap: anywhere; }
+.review.is-clamped p { display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+.review-toggle { justify-self: start; background: none; border: 0; padding: 0; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--red); cursor: pointer; }
+.review-toggle:hover { color: var(--ink); }
+.review figcaption { display: grid; gap: .3rem; }
+.review-loc { color: var(--red-deep); font-weight: 700; letter-spacing: .08em; }
+.review-loc:hover { text-decoration: underline; }
+.review-more { justify-content: center; margin-top: 1.6rem; }
+.review-more[hidden] { display: none; }
+.review-source { text-align: center; font-size: .78rem; color: var(--muted); margin-top: 1.2rem; }
+
 /* ---------- split ---------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 4rem); align-items: center; }
 .split > * { min-width: 0; }
