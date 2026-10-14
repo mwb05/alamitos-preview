@@ -285,13 +285,10 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .review-tools[hidden] { display: none; }
 .review-tools label { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .review-tools select { font: inherit; font-weight: 700; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); border-radius: var(--radius); padding: .55rem 2.2rem .55rem .8rem; cursor: pointer; }
-.review-count { width: 100%; text-align: center; font-size: .8rem; color: var(--muted); }
 .review-grid { align-items: stretch; }
 .review[hidden] { display: none; }
-.review p { overflow-wrap: anywhere; min-height: 10.7rem; }
-.review.is-clamped p { display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
-.review-toggle { justify-self: start; background: none; border: 0; padding: 0; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--red); cursor: pointer; }
-.review-toggle:hover { color: var(--ink); }
+.review { height: 26rem; grid-template-rows: auto minmax(0, 1fr) auto; }
+.review p { overflow-wrap: anywhere; overflow-y: auto; margin: 0; }
 .review figcaption { display: grid; gap: .3rem; margin-top: auto; }
 .review-loc { color: var(--red-deep); font-weight: 700; letter-spacing: .08em; }
 .review-loc:hover { text-decoration: underline; }

@@ -189,7 +189,7 @@
     });
   })();
 
-  /* ---------- reviews wall: page, filter by store, clamp long reviews ---------- */
+  /* ---------- reviews wall: page, filter by store ---------- */
   // Without JS every review simply shows in full; this only tidies the wall up.
   (function reviews() {
     var section = document.querySelector('.reviews');
@@ -197,7 +197,6 @@
     var cards = [].slice.call(section.querySelectorAll('.review'));
     var tools = section.querySelector('.review-tools');
     var select = section.querySelector('#review-filter');
-    var count = section.querySelector('.review-count');
     var more = section.querySelector('.review-more');
     var moreBtn = more && more.querySelector('button');
     if (!cards.length) return;
@@ -205,35 +204,12 @@
     var pageSize = mqMobile.matches ? 4 : 9;
     var shown = pageSize;
 
-    function clamp(card) {
-      if (card.hasAttribute('data-clamped')) return;
-      var p = card.querySelector('p');
-      card.classList.add('is-clamped');
-      if (p.scrollHeight <= p.clientHeight + 2) { card.classList.remove('is-clamped'); }
-      else {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'review-toggle';
-        b.textContent = 'Read more';
-        b.setAttribute('aria-expanded', 'false');
-        b.addEventListener('click', function () {
-          var open = card.classList.toggle('is-clamped') === false;
-          b.textContent = open ? 'Read less' : 'Read more';
-          b.setAttribute('aria-expanded', String(open));
-        });
-        p.insertAdjacentElement('afterend', b);
-      }
-      card.setAttribute('data-clamped', '');
-    }
-
     function render() {
       var loc = select ? select.value : '';
       var matches = cards.filter(function (c) { return !loc || c.getAttribute('data-loc') === loc; });
       cards.forEach(function (c) { c.hidden = true; });
       matches.forEach(function (c, i) { c.hidden = i >= shown; });
-      matches.forEach(function (c) { if (!c.hidden) clamp(c); });
       var visible = Math.min(shown, matches.length);
-      if (count) count.textContent = 'Showing ' + visible + ' of ' + matches.length + ' five-star reviews';
       if (more) more.hidden = visible >= matches.length;
     }
 
