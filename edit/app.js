@@ -67,13 +67,14 @@
   // ── talking to Jarvis ───────────────────────────────────────────────────────────────────────
   function api(path, opts) {
     opts = opts || {};
-    var headers = { 'x-site-editor-code': store.get('code') };
+    // The name rides along so Jarvis knows who holds a site's seat (header values must be plain ASCII).
+    var headers = { 'x-site-editor-code': store.get('code'), 'x-site-editor-name': norm(store.get('name')).replace(/[^ -~]/g, '') };
     if (opts.body) headers['content-type'] = 'application/json';
     return fetch(apiBase() + '/api/site-editor/hr' + path, {
       method: opts.method || 'GET', headers: headers, body: opts.body ? JSON.stringify(opts.body) : undefined, cache: 'no-store',
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) {
-        if (!r.ok) { var e = new Error(j.error || ('HTTP ' + r.status)); e.status = r.status; throw e; }
+        if (!r.ok) { var e = new Error(j.error || ('HTTP ' + r.status)); e.status = r.status; e.locked = j.locked || null; throw e; }
         return j;
       });
     }, function () {
@@ -210,6 +211,8 @@
         if (s.pending) bits.push('<i class="pend">' + s.pending + ' pending</i>');
         if (s.inProgress) bits.push('<i class="prog">' + s.inProgress + ' in progress</i>');
         if (!bits.length) bits.push('<i>No open edits</i>');
+        // One person per site at a time: say who is on it (or that changes are still going live).
+        if (s.seat && !s.seat.free) bits.unshift('<i class="busy">' + esc(s.seat.why === 'editing' ? ('In use by ' + (s.seat.by || 'someone')) : 'Changes going live') + '</i>');
         m.innerHTML = bits.join('') + '<b>Open editor &rarr;</b>';
       });
     }).catch(function (e) {
@@ -226,7 +229,39 @@
   function stopEditor() {
     if (!ed) return;
     clearInterval(ed.poll);
+    clearInterval(ed.beat);
+    leaveSeat(ed.site.id);
     ed = null;
+  }
+
+  // ── the site's seat: one person on a site at a time ─────────────────────────────────────────
+  // Jarvis hands a site to one HR person at a time and keeps the next one out until the first
+  // has left AND every change they sent is live. Leaving is a beacon (it still goes out while the
+  // tab closes), with the code in the body because a beacon cannot carry our headers.
+  function leaveSeat(siteId) {
+    var body = JSON.stringify({ op: 'leave', site: siteId, by: norm(store.get('name')), code: store.get('code') });
+    var url = apiBase() + '/api/site-editor/hr';
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([body], { type: 'text/plain' }))) return;
+    } catch (e) {}
+    try { fetch(url, { method: 'POST', body: body, headers: { 'content-type': 'text/plain' }, keepalive: true }).catch(function () {}); } catch (e) {}
+  }
+  window.addEventListener('pagehide', function () { if (ed) leaveSeat(ed.site.id); });
+  // Coming back to a tab that was put away (phone): take the seat again on the next poll.
+  window.addEventListener('pageshow', function (ev) { if (ev.persisted && ed) { ed.lastPoll = 0; load(); } });
+  function heartbeat() {
+    if (!ed || ed.locked) return;
+    api('', { method: 'POST', body: { op: 'hello', site: ed.site.id, by: norm(store.get('name')) } }).catch(function (e) { if (e.status === 423) load(); });
+  }
+  function showLock(info) {
+    var el = $('#lock');
+    if (!el) return;
+    ed.locked = !!info;
+    el.hidden = !info;
+    if (info) {
+      cancelDraft();
+      $('#lock-msg').textContent = info.message || 'Someone else is on this site right now.';
+    }
   }
 
   function renderEditor(site) {
@@ -235,7 +270,7 @@
     ed = {
       site: site, data: null, edits: [], editMode: true, viewport: narrow ? 'mobile' : 'desktop', framePath: '/', nonce: 0,
       draft: null, draftMode: 'comment', tab: 'all', open: null, panelOpen: !narrow, busy: false, pins: [],
-      hover: null, editing: null, pendingJump: null, poll: 0, pollEvery: 15000, lastPoll: 0,
+      hover: null, editing: null, pendingJump: null, poll: 0, pollEvery: 15000, lastPoll: 0, beat: 0, locked: false,
     };
     var app = $('#app');
     app.className = 'app editor';
@@ -263,9 +298,13 @@
       + '    <ul class="list" id="list"></ul>'
       + '    <div class="panel-foot" id="foot" hidden><button type="button" class="btn ghost" id="clear">Clear finished</button><span class="dim">Done edits are live on the site.</span></div>'
       + '  </aside>'
+      + '  <div class="lock" id="lock" hidden><div class="lock-card"><strong>Please wait</strong><p id="lock-msg"></p>'
+      + '    <p class="dim">Only one person can work on a site at a time, so edits never cross. This page checks every few seconds and lets you in by itself.</p>'
+      + '    <button type="button" class="btn ghost" id="lock-back">Back to the sites</button></div></div>'
       + '</div>';
 
     $('#back').addEventListener('click', function () { location.hash = ''; });
+    $('#lock-back').addEventListener('click', function () { location.hash = ''; });
     $('#editmode input').addEventListener('change', function (ev) {
       ed.editMode = ev.target.checked;
       $('#editmode').classList.toggle('on', ed.editMode);
@@ -288,6 +327,8 @@
     loadFrame();
     load();
     ed.poll = setInterval(visiblePoll, 1000);
+    // Keeps the seat while the tab is in the background too (Jarvis frees it after 3 quiet minutes).
+    ed.beat = setInterval(heartbeat, 60000);
   }
 
   function renderHint() {
@@ -329,12 +370,14 @@
       var running = (j.batches || []).some(function (b) { return b.status === 'running'; });
       var applying = (j.batches || []).some(function (b) { return b.status === 'running' && !b.waitingLive; });
       ed.pollEvery = applying ? 4000 : (running ? 10000 : 15000);
+      showLock(null);
       $('#err').hidden = true;
       renderPages();
       renderPanel();
       refreshPins();
     }).catch(function (e) {
       if (!ed) return;
+      if (e.status === 423) { showLock(e.locked || { message: e.message }); ed.pollEvery = 8000; return; }
       var el = $('#err');
       el.textContent = e.message + (e.status === 401 ? ' Go back and check the access code.' : ''); el.hidden = false;
     });
@@ -346,8 +389,10 @@
     for (var k in payload) body[k] = payload[k];
     return api('', { method: 'POST', body: body }).then(function (j) {
       return load().then(function () { return j; });
-    }).catch(function (e) { say(e.message); return null; })
-      .then(function (j) { if (ed) { ed.busy = false; renderButtons(); } return j; });
+    }).catch(function (e) {
+      if (e.status === 423 && ed) { showLock(e.locked || { message: e.message }); return null; }
+      say(e.message); return null;
+    }).then(function (j) { if (ed) { ed.busy = false; renderButtons(); } return j; });
   }
   function renderButtons() {
     var pending = ed.edits.filter(function (e) { return e.status === 'pending'; }).length;
