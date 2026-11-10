@@ -152,7 +152,7 @@
       + '<section class="who">'
       + '  <label class="field">Your name<input id="who-name" placeholder="e.g. Maria in HR" value="' + esc(store.get('name')) + '"></label>'
       + '  <label class="field">Access code (from Matt)<input id="who-code" placeholder="XXXX-XXXX" autocapitalize="characters" value="' + esc(store.get('code')) + '"></label>'
-      + '  <div class="note">Your name goes on every edit so Matt knows who asked. The code is the one Matt gave HR; it is remembered on this device.</div>'
+      + '  <div class="note">Your name goes on every edit so Matt knows who asked. The code is your own, from Matt; it is remembered on this device.</div>'
       + '</section>'
       + '<div id="home-err" class="err" hidden></div>'
       + '<main class="grid">' + SITES.map(function (s) {
@@ -199,6 +199,10 @@
     api('?list=1').then(function (j) {
       if (!$('#home-err')) return;
       $('#home-err').hidden = true;
+      // Each person's code opens only their sites (Jose: Golden West only); hide the rest.
+      var open = (j.sites || []).map(function (s) { return s.id; });
+      $$('.card').forEach(function (c) { c.style.display = open.indexOf(c.getAttribute('data-site')) < 0 ? 'none' : ''; });
+      if (j.you && !norm(store.get('name'))) { store.set('name', j.you); var n = $('#who-name'); if (n) n.value = j.you; }
       (j.sites || []).forEach(function (s) {
         var m = $('#meta-' + s.id);
         if (!m) return;
