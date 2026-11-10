@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Site Editor - Alamitos Group and Golden West Tire Centers</title>
+<!--
+  The HR Site Editor (2026-11-10). A static copy of the Jarvis Site Editor for the HR department:
+  pick a site, click anything on it to pin a comment or retype text in place, and submit. Every
+  edit goes to Jarvis (api base in app.js), which applies exact text swaps itself and hands the rest
+  to a builder job, then publishes the site. Matt sees the same edits, with the editor's name on
+  them, on his own Site Editor.
+
+  Hosted on GitHub Pages next to the sites it edits, on purpose: the editor and both previews share
+  the mwb05.github.io origin, so this page may read and decorate the site inside its frame. Move it
+  to another origin and the frame goes dark (the browser blocks the document).
+-->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app" class="app"></div>
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
