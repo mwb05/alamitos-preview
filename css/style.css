@@ -44,7 +44,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; color-scheme: only light; }
 
 body {
   margin: 0;
@@ -429,7 +429,9 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 @media (max-width: 860px) {
   .main-nav {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh;
-    background: var(--paper); z-index: 310;
+    /* Solid charcoal panel, white type: stays readable even when a phone's forced dark mode
+       repaints the page (it left a white panel with lightened, unreadable text). */
+    background: var(--ink); z-index: 310;
     display: grid; align-content: center; align-content: safe center; justify-items: center;
     padding: calc(var(--header-h) + 1.6rem) var(--gutter) 2.4rem;
     opacity: 0; visibility: hidden; transition: opacity .3s var(--ease), visibility .3s;
@@ -437,7 +439,7 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
   .main-nav.open { opacity: 1; visibility: visible; }
   .main-nav ul { flex-direction: column; align-items: center; gap: .1rem; }
   .main-nav li { overflow: hidden; }
-  .main-nav a { font-size: clamp(1.8rem, 8vw, 2.7rem); letter-spacing: -.03em; color: var(--ink); display: block; transform: translateY(108%); transition: transform .5s var(--ease-out); }
+  .main-nav a { font-size: clamp(1.8rem, 8vw, 2.7rem); letter-spacing: -.03em; color: #fff; display: block; transform: translateY(108%); transition: transform .5s var(--ease-out); }
   .main-nav.open a { transform: translateY(0); }
   .main-nav.open li:nth-child(2) a { transition-delay: .05s; }
   .main-nav.open li:nth-child(3) a { transition-delay: .10s; }
@@ -445,9 +447,11 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
   .main-nav.open li:nth-child(5) a { transition-delay: .20s; }
   .main-nav.open li:nth-child(6) a { transition-delay: .25s; }
   .main-nav a::after { display: none; }
+  .main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--red-on-dark); }
 
   .nav-toggle { display: grid; place-content: center; gap: 5px; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; z-index: 315; flex: none; }
   .nav-toggle .bar { display: block; width: 24px; height: 2px; background: var(--ink); transition: transform .3s var(--ease), opacity .2s var(--ease); }
+  .nav-toggle[aria-expanded="true"] .bar { background: #fff; }
   .nav-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
