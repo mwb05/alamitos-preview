@@ -211,7 +211,20 @@
       matches.forEach(function (c, i) { c.hidden = i >= shown; });
       var visible = Math.min(shown, matches.length);
       if (more) more.hidden = visible >= matches.length;
+      keyboardScroll();
     }
+
+    // WCAG 2.1.1: a review long enough to scroll inside its fixed-height card gets a tab stop,
+    // so keyboard users can scroll it with the arrow keys.
+    function keyboardScroll() {
+      cards.forEach(function (c) {
+        var p = c.querySelector('p');
+        if (!p) return;
+        if (!c.hidden && p.scrollHeight > p.clientHeight + 1) p.setAttribute('tabindex', '0');
+        else p.removeAttribute('tabindex');
+      });
+    }
+    window.addEventListener('resize', keyboardScroll);
 
     if (tools) tools.hidden = false;
     if (select) select.addEventListener('change', function () { shown = pageSize; render(); });
