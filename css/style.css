@@ -12,17 +12,18 @@
    ============================================================================= */
 
 :root {
-  /* Daylight. Warm paper, not white — a forecourt in the sun, not a gallery. */
-  --paper: #FAF7F2;
-  --paper-2: #F2EDE5;
-  --paper-3: #E8E1D6;
-  --ink: #17120E;
-  --ink-2: #453C34;
-  --muted: #6E6257;
-  --dim: #787067;            /* was #A2978B: 2.68:1 on paper, now 4.56:1 */
+  /* Jiffy Lube colours: clean white, cool service-bay greys, charcoal and the brand
+     red. (Was a warm cream/brown palette; Matt asked for the Jiffy Lube colours.) */
+  --paper: #FFFFFF;
+  --paper-2: #F2F4F6;
+  --paper-3: #E3E7EB;
+  --ink: #111418;
+  --ink-2: #3C434B;
+  --muted: #5C646D;
+  --dim: #6A727B;            /* 4.8:1 on paper */
 
-  --line: rgba(23, 18, 14, .12);
-  --line-strong: rgba(23, 18, 14, .26);
+  --line: rgba(17, 20, 24, .12);
+  --line-strong: rgba(17, 20, 24, .26);
 
   /* Jiffy Lube red, carried over from v1. */
   --red: #DA2032;
@@ -96,7 +97,7 @@ p { margin: 0; }
 .prose-center { max-width: 62ch; margin-inline: auto; text-align: center; display: grid; gap: .9rem; }
 .prose-center p { color: var(--ink-2); font-size: 1.02rem; line-height: 1.6; }
 .on-dark { background: var(--ink); color: var(--paper); }
-.on-dark .lede { color: #C9BFB4; }
+.on-dark .lede { color: #C3C9D0; }
 .on-red { background: var(--red); color: #fff; }
 .on-red .lede { color: #fff; }
 .on-red .tab { background: #fff; color: var(--red); }
@@ -119,7 +120,7 @@ p { margin: 0; }
   display: inline-flex; align-items: center; justify-content: center; flex: none;
   height: 46px; padding: 4px 8px; background: #fff;
   border: 1px solid var(--line-strong); border-radius: var(--radius);
-  box-shadow: 0 1px 2px rgba(23, 18, 14, .08);
+  box-shadow: 0 1px 2px rgba(17, 20, 24, .08);
   transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
 }
 .brand-plate img { display: block; height: 100%; width: auto; }
@@ -181,7 +182,7 @@ p { margin: 0; }
 .hero { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: hidden; background: var(--ink); }
 .hero-media { position: absolute; inset: 0; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
-.hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,18,14,.55) 0%, rgba(23,18,14,.15) 42%, rgba(23,18,14,.88) 100%); }
+.hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,24,.55) 0%, rgba(17,20,24,.15) 42%, rgba(17,20,24,.88) 100%); }
 /* Roller-shutter slats that lift away on load, like a bay door opening. */
 .bay-door { position: absolute; inset: 0; z-index: 6; display: grid; grid-template-rows: repeat(7, 1fr); pointer-events: none; }
 .bay-door i { display: block; background: var(--ink); border-bottom: 1px solid rgba(255,255,255,.06); transform-origin: 50% 0; transition: transform 1s var(--ease-out); }
@@ -197,7 +198,7 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 
 .hero-inner { position: relative; z-index: 7; color: var(--paper); padding-bottom: clamp(2.6rem, 6vh, 5rem); padding-top: calc(var(--header-h) + 2.5rem); }
 .hero h1 { max-width: 13ch; }
-.hero .lede { color: #DDD5CB; margin-top: 1.2rem; }
+.hero .lede { color: #DDE1E6; margin-top: 1.2rem; }
 .hero .btn-row { margin-top: 1.9rem; }
 .hero .tab { background: var(--red); }
 
@@ -206,7 +207,7 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .odo-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .odo { padding: clamp(1.6rem, 3.2vw, 2.6rem) clamp(.9rem, 2vw, 1.8rem); }
 .odo + .odo { border-left: 1px solid rgba(255,255,255,.14); }
-.odo .label { display: block; margin-top: .6rem; font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #B8ADA1; }
+.odo .label { display: block; margin-top: .6rem; font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #ADB4BC; }
 
 /* Mechanical digit roll. Each digit is a 0-9 column translated into place. */
 .odometer { display: flex; align-items: baseline; gap: .02em; font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
@@ -233,7 +234,7 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .step.intro h2 { color: #fff; }
 .step.intro .lede { color: #fff; margin-top: .9rem; }
 
-.visit-bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: rgba(23,18,14,.1); z-index: 4; }
+.visit-bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: rgba(17,20,24,.1); z-index: 4; }
 .visit-bar i { display: block; height: 100%; background: var(--red); transform: scaleX(0); transform-origin: 0 50%; }
 
 /* Degraded form: a native swipe carousel, same markup. */
@@ -328,9 +329,9 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .tick-list li::before { content: '→'; color: var(--red); font-weight: 800; }
 
 /* ---------- creed: the mission, three numbered statements ---------- */
-.creed { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(250,247,242,.22); }
-.creed-item { padding: clamp(1.3rem, 2.6vw, 2rem) clamp(1rem, 2vw, 1.6rem) clamp(1.3rem, 2.6vw, 2rem) 0; border-bottom: 1px solid rgba(250,247,242,.22); display: grid; gap: .7rem; align-content: start; }
-.creed-item + .creed-item { border-left: 1px solid rgba(250,247,242,.22); padding-left: clamp(1rem, 2vw, 1.6rem); }
+.creed { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(255,255,255,.22); }
+.creed-item { padding: clamp(1.3rem, 2.6vw, 2rem) clamp(1rem, 2vw, 1.6rem) clamp(1.3rem, 2.6vw, 2rem) 0; border-bottom: 1px solid rgba(255,255,255,.22); display: grid; gap: .7rem; align-content: start; }
+.creed-item + .creed-item { border-left: 1px solid rgba(255,255,255,.22); padding-left: clamp(1rem, 2vw, 1.6rem); }
 .creed-item .n { font-size: .82rem; font-weight: 800; letter-spacing: .06em; color: var(--red-on-dark); }
 .creed-item p { font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.45; color: var(--paper); }
 
@@ -390,17 +391,17 @@ body.is-loaded .bay-door { transition: visibility 0s 1.4s; visibility: hidden; }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1.8fr; gap: clamp(1.6rem, 3.5vw, 3rem); }
 .footer-brand .brand-plate { height: 64px; padding: 7px 11px; margin-bottom: .9rem; border-color: rgba(255, 255, 255, .22); box-shadow: none; }
 .footer-brand .wordmark { font-weight: 800; font-size: .92rem; text-transform: uppercase; letter-spacing: .02em; }
-.footer-brand .sub { color: #A2978B; font-size: .8rem; margin-top: .2rem; }
-.site-footer h3 { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: #B8ADA1; margin-bottom: .8rem; font-weight: 700; }
+.footer-brand .sub { color: #99A1AA; font-size: .8rem; margin-top: .2rem; }
+.site-footer h3 { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: #ADB4BC; margin-bottom: .8rem; font-weight: 700; }
 .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
-.site-footer a, .site-footer li { font-size: .88rem; color: #C9BFB4; }
+.site-footer a, .site-footer li { font-size: .88rem; color: #C3C9D0; }
 .site-footer a:hover { color: #fff; }
 .footer-phone { font-size: 1.15rem !important; font-weight: 800; color: #fff !important; }
-.footer-bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: clamp(1.8rem, 3.5vw, 2.6rem); padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,.14); font-size: .78rem; color: #8F857A; }
+.footer-bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: clamp(1.8rem, 3.5vw, 2.6rem); padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,.14); font-size: .78rem; color: #89919A; }
 
 .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
 .contact-form .full { grid-column: 1 / -1; }
-.contact-form label { display: block; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: #B8ADA1; margin-bottom: .3rem; font-weight: 700; }
+.contact-form label { display: block; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: #ADB4BC; margin-bottom: .3rem; font-weight: 700; }
 .contact-form input, .contact-form textarea {
   width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.2);
   border-radius: 0; color: #fff; font: inherit; font-size: .95rem; padding: .55rem .65rem;
